@@ -115,7 +115,7 @@ namespace NBN_Assign1
             }
             Menu();
         }
-        
+        //display all menu options for player to choose from
         public static void Menu() {
             Console.WriteLine("1. Print All Players -- print a list of all Players.");
             Console.WriteLine("2. Print All Guilds -- print the names of all Guilds.");
@@ -301,25 +301,25 @@ namespace NBN_Assign1
             Menu();
         }
 
-
+        //display all players in player directory
         public static void PrintAllPlayers() {
             foreach(KeyValuePair<uint, Player> entry in playerList) {
                 Console.WriteLine(entry.Value.ToString());
             }
         }
-
+        //display all guilds in guild directory
         public static void PrintAllGuilds() {
             foreach (KeyValuePair<uint, string> entry in guildList) {
                 Console.WriteLine(entry.Value.ToString());
             }
         }
-
+        //display all items in item directory
         public static void PrintAllItems() {
             foreach (KeyValuePair<uint, Item> entry in gearList) {
                 Console.WriteLine(entry.Value.ToString());
             }
         }
-
+        //display specific player based on user entry 
         public static Player GetPlayerFromString(string playerName) {
             foreach(KeyValuePair<uint, Player> entry in playerList) {
                 if (entry.Value.Name == playerName) {
@@ -328,7 +328,7 @@ namespace NBN_Assign1
             }
             return null;
         }
-
+        //display specific item based on user entry 
         public static Item GetItemFromString(string itemName) {
             foreach (KeyValuePair<uint, Item> entry in gearList) {
                 if (entry.Value.Name == itemName) {
@@ -337,7 +337,7 @@ namespace NBN_Assign1
             }
             return null;
         }
-
+        //grab guild ID based on user entry 
         public static uint GetGuildIDFromString(string guildName) {
             foreach (KeyValuePair<uint, string> entry in guildList) {
                 if (entry.Value == guildName) {
@@ -346,7 +346,7 @@ namespace NBN_Assign1
             }
             return 0;
         }
-
+        //sorts players and items and displays new order
         public static void SortStuff() {
             SortedSet<Player> sortedPlayer = new SortedSet<Player>();
             SortedSet<Item> sortedItems = new SortedSet<Item>();
@@ -592,18 +592,35 @@ namespace NBN_Assign1
                 this.inventory = inventory;
             }
             
+            /*
+            * Property: ID
+            *
+            * Description: Gets the ID of the player.
+            */
             public uint ID {
                 get { return this.id; }
             }
-
+            /*
+            * Property: Name
+            *
+            *Description: Gets the Name of the player.
+            */
             public string Name {
                 get { return this.name; }
             }
-
+            /*
+            *Property: Race
+            *
+            *Description: Gets the Race of the player.
+            */
             public Race Race {
                 get { return this.race; }
             }
-
+            /*
+            * Property: Level
+            *
+            * Description: Gets the Level of the player.
+            */
             public uint Level {
                 set {
                     if (value >= 0 && value <= MAX_LEVEL)
@@ -614,7 +631,11 @@ namespace NBN_Assign1
 
                 get { return this.level; }
             }
-
+            /*
+            * Property: Exp
+            *
+            * Description: Gets the Exp of the player.
+            */
             public uint Exp {
                 set {
 
@@ -646,7 +667,11 @@ namespace NBN_Assign1
 
                 get { return this.exp; }
             }
-
+            /*
+            * Property: GuildID
+            *
+            * Description: Gets the Guild ID of the guild the player is in.
+            */
             public uint GuildID {
                 get { return guildID; }
                 set { guildID = value; }
@@ -657,7 +682,7 @@ namespace NBN_Assign1
                 set { gear[i] = value; }
                 get { return gear[i]; }
             }
-
+            //will compare two different players 
             public int CompareTo(object newRightOp) {
                 if (newRightOp == null) return 1;
 
@@ -668,7 +693,11 @@ namespace NBN_Assign1
                 else
                     throw new ArgumentException("The argument being compared is not of type Player.");
             }
-
+            /*
+            * Property: EquipGear
+            *
+            * Description: Equips gear to player.
+            */
             public void EquipGear(uint newGearID) {
                 if (!gearList.ContainsKey(newGearID)) {
                     return;
@@ -705,7 +734,11 @@ namespace NBN_Assign1
                 //Console.WriteLine(gear[(uint)item.getType()].ToString());
                 //Console.WriteLine(item.getName());
             }
-
+            /*
+            * Property: UnequipGear
+            *
+            * Description: Unequips Gear from player.
+            */
             public void UnequipGear(int gearSlot) {
                 if (gear[gearSlot] == 0) {
                     return;
@@ -718,7 +751,11 @@ namespace NBN_Assign1
 
                 return;
             }
-
+            /*
+            * Property: PlaceInInventory
+            *
+            * Description: Takes item and places item in player inventory.
+            */
             public void PlaceInInventory(Item item) {
                 if (inventory.Count >= MAX_INVENTORY_SIZE) {
                     throw new Exception("Your inventory is full!");
@@ -729,7 +766,11 @@ namespace NBN_Assign1
 
                 return;
             }
-
+            /*
+            * Property: PrintGearList
+            *
+            * Description: Prints all the gear the player has.
+            */         
             public void PrintGearList () {
                 //Console.WriteLine("Player Name: " + Name + " lvl. (" + Level + ")");
                 Console.WriteLine(ToString());
@@ -766,7 +807,11 @@ namespace NBN_Assign1
                     }
                 }
             }
-
+            /*
+            * Property: JoinGuild
+            *
+            * Description: Player can join any guild in the guild directory.
+            */
             public void JoinGuild(uint guildID) {
                 // Need to leave before you can join another guild
                 if (this.GuildID != 0) {
@@ -784,7 +829,11 @@ namespace NBN_Assign1
 
 
             }
-
+            /*
+            * Property: LeaveGuild
+            *
+            * Description: Removes player from current guild.
+            */
             public void LeaveGuild() {
                 // Need to be in a guild to leave a guild
                 if (this.GuildID == 0) {
